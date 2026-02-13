@@ -7,9 +7,9 @@ abstract class Controller{
         extract($data);
         $viewFile = __DIR__ . "/../views/" . $view . ".php";
         if(file_exists($viewFile)){
-            require_once $viewFile;
+            require_once __DIR__ . "/../views/layouts/main.php";
         }else{
-            die("LA VISTA {$view} NO EXISTE.");
+            die("LA VISTA {$view} NO EXISTE EN {$viewFile}");
         }
     }
 
@@ -21,7 +21,7 @@ abstract class Controller{
     }
 
     //Método para auditorías (cuando se implementen)
-    public function auditoria($movimiento_id, $accion, $anteriores = null, $nuevos = null){
+    /*public function auditoria($movimiento_id, $accion, $anteriores = null, $nuevos = null){
         require_once __DIR__ . "/../models/Log.php";
         $logModel = new Log();
         $logData = [
@@ -32,6 +32,6 @@ abstract class Controller{
             'datos_nuevos'     => $nuevos ? json_encode($nuevos) : null
         ];
         return $logModel->registrar($logData);
-    }
+    }*/
 
 }

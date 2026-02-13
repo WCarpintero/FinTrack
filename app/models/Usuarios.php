@@ -1,6 +1,6 @@
 <?php
 
-class Usuario extends Model{
+class Usuarios extends Model{
     //Registrar un nuevo usuario
     public function registrarUsuario($data){
         $sql = "INSERT INTO usuarios(nombres, apellidos, email, telefono, password, rol_id)
@@ -119,4 +119,5 @@ class Usuario extends Model{
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':id' => $id]);
     }
+
 }
