@@ -1,4 +1,6 @@
 RewriteEngine On
+
 # Redirige todo a la carpeta public
+
 RewriteRule ^$ public/ [L]
 RewriteRule (.*) public/$1 [L]

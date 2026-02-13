@@ -1,6 +1,6 @@
 <?php
 
-$path = __DIR__ . "/../.env";
+$path = __DIR__ . "/../../.env";
 $env = parse_ini_file($path);
 
 return [

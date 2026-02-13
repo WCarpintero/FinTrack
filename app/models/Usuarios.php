@@ -3,10 +3,17 @@
 class Usuarios extends Model{
     //Registrar un nuevo usuario
     public function registrarUsuario($data){
-        $sql = "INSERT INTO usuarios(nombres, apellidos, email, telefono, password, rol_id)
-                VALUES (:nombres, :apellidos, :email, :telefono, :password, :rol_id)";
+        $sql = "INSERT INTO usuarios(identificacion,
+    				 nombres, 
+                     apellidos, 
+                     email, 
+                     telefono, 
+                     password, 
+                     rol_id)
+                VALUES (:identificacion, :nombres, :apellidos, :email, :telefono, :password, :rol_id)";
 
         $params = [
+            ':identificacion' => $data['identificacion'],
             ':nombres' => $data['nombres'],
             ':apellidos' => $data['apellidos'],
             ':email' => $data['email'],

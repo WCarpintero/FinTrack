@@ -6,8 +6,15 @@ abstract class Controller{
     public function render($view, $data = []){
         extract($data);
         $viewFile = __DIR__ . "/../views/" . $view . ".php";
+        
         if(file_exists($viewFile)){
-            require_once __DIR__ . "/../views/layouts/main.php";
+            $header = __DIR__ . "/../views/layouts/header.php";
+            $footer = __DIR__ . "/../views/layouts/footer.php";
+
+            require_once $header;
+            require_once $viewFile;
+            require_once $footer;
+            
         }else{
             die("LA VISTA {$view} NO EXISTE EN {$viewFile}");
         }
@@ -18,6 +25,12 @@ abstract class Controller{
         header('Content-Type: application/json');
         echo json_encode($data);
         exit;
+    }
+
+    public function listar(){
+        $usarioModel = new Usuarios();
+        $usuarios = $usarioModel->listarUsuarios();
+        $this->render("dashboard/usuarios", ['usuarios' => $usuarios]);
     }
 
     //Método para auditorías (cuando se implementen)
