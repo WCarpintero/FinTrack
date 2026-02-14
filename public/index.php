@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-// 2. Autoload dinámico: Carga automáticamente archivos de Core y Models
+require_once __DIR__ . '/../app/core/Config.php';
+//Cargar las variables del .env que está en la raíz
+Config::loadEnv(__DIR__ . '/../.env');
+// Autoload dinámico: Carga automáticamente archivos de Core y Models
 spl_autoload_register(function ($className) {
     // Definimos las rutas donde buscar clases
     $paths = [
