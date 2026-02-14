@@ -5,7 +5,7 @@ abstract class Controller{
     //Cargar vistas 
     public function render($view, $data = []){
         extract($data);
-        $viewFile = __DIR__ . "/../views/" . $view . ".php";
+        $viewFile = realpath(__DIR__ . "/../views/" . $view . ".php");
         if(file_exists($viewFile)){
             require_once __DIR__ . "/../views/layouts/main.php";
         }else{
