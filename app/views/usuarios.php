@@ -116,7 +116,7 @@ require_once __DIR__ . '/header.php';
                     </tr>
                 </tbody>
             </table>
-        </div>
+    </div>
         <div class="card-footer bg-white border-0 py-3">
             <p class="text-muted small mb-0">Mostrando {{ usuariosFiltrados.length }} usuarios registrados.</p>
         </div>
@@ -207,8 +207,9 @@ require_once __DIR__ . '/header.php';
                 </div>
             </div>
         </div>
-    </div>
-<?php require_once __DIR__ . '/modalEditarUsuario.php'; ?>
+     <?php require_once __DIR__ . '/modalEditarUsuario.php'; ?>
+</div> 
+
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="<?= URL ?>/javascript/gestionUsuarios.js"></script>
 
