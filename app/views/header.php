@@ -30,6 +30,9 @@
             <a href="<?= URL ?>/usuarios/main" class="nav-link-custom <?= $active == 'usuarios' ? 'active' : '' ?>">
                 <i class="bi bi-people-fill"></i> Usuarios
             </a>
+            <a href="<?= URL ?>/movimiento/crear" class="nav-link-custom <?= $active == 'movimientos_registro' ? 'active' : '' ?>">
+                <i class="bi bi-cash-stack"></i> Registro de operaciones
+            </a>
             <a href="<?= URL ?>/reportes" class="nav-link-custom <?= $active == 'reportes' ? 'active' : '' ?>">
                 <i class="bi bi-graph-up-arrow"></i> Reportes
             </a>

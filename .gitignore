@@ -1,0 +1,17 @@
+# Composer
+/vendor/
+/composer.lock
+
+# Variables de entorno
+.env
+.env.*
+
+# Logs
+*.log
+
+# Archivos del sistema
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

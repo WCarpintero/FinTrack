@@ -90,6 +90,12 @@ switch ($url) {
         require_once '../app/views/usuarios.php'; 
         break;
 
+    case 'movimiento/crear':
+        //Gestión de usuarios 
+        require_once '../app/models/Movimientos.php';
+        require_once '../app/views/movimientos.php'; 
+        break;
+
     case 'movimiento/listar':
         //Gestión de usuarios 
         //require_once '../app/models/Usuario.php';

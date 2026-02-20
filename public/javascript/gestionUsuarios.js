@@ -150,8 +150,21 @@ createApp({
             this.mensaje = '';
             try {
                 const formData = new FormData();
-                for (const key in this.nuevo) { formData.append(key, this.nuevo[key]); }
+                const inversionInicial = parseFloat(this.nuevo.invertido_cripto) || 0;
+                const utilidades = parseFloat(this.nuevo.saldo_actual) || 0;
+                const bonos = parseFloat(this.nuevo.regalos_bonos) || 0;
 
+                // El "saldo_actual" que viaja al backend será la suma real
+                const saldoCalculado = inversionInicial + utilidades + bonos;
+                for (const key in this.nuevo) {
+                    if (key === 'saldo_actual') {
+                        formData.append(key, saldoCalculado); // total calculado
+                    } else {
+                        formData.append(key, this.nuevo[key]);
+                    }
+                }
+                // Debug: Verifica en la consola del navegador antes de enviar
+                console.log("Enviando par_operar_fk:", this.nuevo.par_operar_fk);
                 const response = await fetch(`${Config.BASE_URL}/auth/registrar_completo`, {
                     method: 'POST',
                     body: formData
