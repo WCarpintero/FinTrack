@@ -1,0 +1,71 @@
+/* Optimizaciones Generales */
+#movimientosApp {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* Ajuste de tarjetas en móviles */
+@media (max-width: 991.98px) {
+    .col-lg-4 {
+        margin-bottom: 1.5rem; /* Separación entre formulario e historial */
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Control de la Tabla Responsiva */
+.custom-table-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+.custom-table-scroll::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+
+.custom-table-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+/* Estilos de fuente para celdas numéricas (Consolas para alineación) */
+.font-mono {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+    letter-spacing: -0.02em;
+}
+
+/* Mejoras visuales para inputs en móvil */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .input-group-text {
+        padding: 0.5rem;
+    }
+    
+    /* Hacer que las filas internas de monto/divisa se apilen si es muy pequeño */
+    .row.g-2 > [class^="col-"] {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Reducir padding de celdas para ganar espacio */
+    .table td, .table th {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+}
+
+/* Efecto Hover mejorado */
+.table-hover tbody tr:hover {
+    background-color: #f1f5f9 !important;
+    transition: background-color 0.2s ease;
+}
+
+/* Sticky header fix para algunos navegadores */
+.sticky-top {
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.05);
+}

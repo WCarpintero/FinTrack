@@ -113,6 +113,33 @@ switch ($url) {
         $_GET['op'] = 'ejecutarCierreMasivo';
         require_once '../app/controllers/CierreController.php';
         break; 
+
+    case 'tipos/api/listar':
+        $_GET['action'] = 'listar/tipos/movimiento';
+        require_once '../app/controllers/MovimientosController.php';
+        break; 
+
+    case 'horarios/listar':
+        $_GET['action'] = 'listar/horarios';
+        require_once '../app/controllers/MovimientosController.php';
+        break;
+
+    case 'movimientos/registrar':
+        $_GET['action'] = 'registrarMovimiento';
+        require_once '../app/controllers/MovimientosController.php';
+        break;
+    
+    case 'movimientos/historial':
+        //Breve historial de movimientos cuando se están registrando nuevos movimientos
+        $_GET['action'] = 'listarHistorial';
+        require_once '../app/controllers/MovimientosController.php';
+        break;
+
+    case 'divisas/listar':
+        $_GET['action'] = 'listar';
+        require_once '../app/controllers/DivisasController.php';
+        break;
+        
     case 'auth/logout':
         //Cerrar sesión 
         session_destroy();

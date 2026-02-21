@@ -51,4 +51,9 @@ class Divisas extends MainModel{
         return $this->row($sql,[':cod' => $cod]);
     }
 
+    public function listarDivisas(){
+        $sql = "SELECT id, codigo, nombre, simbolo FROM divisas";
+        return $this->table($sql);
+    }
+
 }

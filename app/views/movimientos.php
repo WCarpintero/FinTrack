@@ -2,6 +2,7 @@
 $active = 'movimientos_registro'; 
 require_once __DIR__ . '/header.php'; 
 ?>
+<link rel="stylesheet" href="<?= URL ?>/css/movimientos.css">
 
 <div id="movimientosApp" class="container-fluid">
     <div class="row mb-4 align-items-center">
@@ -44,21 +45,37 @@ require_once __DIR__ . '/header.php';
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <!--<div class="mb-3">
                             <label class="small fw-bold mb-1">Monto Operado (USDT)</label>
                             <input type="number" step="0.01" v-model="movimiento.monto" class="form-control" placeholder="0.00" required>
+                        </div>-->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-8">
+                                <label class="small fw-bold mb-1">Monto Operado</label>
+                                <input type="number" step="0.01" v-model="movimiento.monto" class="form-control" placeholder="0.00" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="small fw-bold mb-1">Divisa</label>
+                                <select v-model="movimiento.divisa_fk" class="form-select" required>
+                                    <option v-for="divisa in divisas" :key="divisa.id" :value="divisa.id">{{ divisa.codigo }}</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="small fw-bold mb-1">Utilidad Neta (USDT)</label>
+                            <label class="small fw-bold mb-1">Utilidad Generada</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light text-muted">+/-</span>
-                                <input type="number" step="0.000001" v-model="movimiento.utilidad" 
+                                <input type="number" step="0.01" v-model="movimiento.utilidad" 
                                        class="form-control fw-bold" 
                                        :class="{'text-success': movimiento.utilidad > 0, 'text-danger': movimiento.utilidad < 0}"
-                                       placeholder="Ej: 15.50 o -10.20" required>
+                                       placeholder="Ej: 7.50" required>
                             </div>
                             <div class="form-text small">Use el signo menos (-) para registrar pérdidas.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small fw-bold mb-1">Fecha de Operación</label>
+                            <input type="date" v-model="movimiento.fecha_operacion" class="form-control" required>
                         </div>
 
                         <div class="mb-4">
@@ -80,36 +97,55 @@ require_once __DIR__ . '/header.php';
         </div>
 
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <h6 class="fw-bold mb-0">Historial Reciente</h6>
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold mb-0">Historial Reciente (últimos 3 días)</h6>
+                    <span class="badge bg-primary-subtle text-primary rounded-pill small">{{ historial.length }} Movimientos</span>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="bg-light">
-                            <tr class="small text-uppercase text-muted">
-                                <th class="ps-4">Usuario</th>
-                                <th>Monto Operado</th>
-                                <th class="text-center">Utilidad</th>
-                                <th class="pe-4">Fecha/Hora</th>
+                
+                <div class="table-responsive" style="max-height: 550px; overflow: auto; border-bottom: 1px solid #dee2e6;">
+                    <table class="table table-hover align-middle mb-0" style="min-width: 900px;">
+                        <thead class="bg-light sticky-top" style="z-index: 10; top: 0;">
+                            <tr class="small text-uppercase text-muted border-bottom">
+                                <th class="ps-4 bg-light" style="width: 180px;">Usuario</th>
+                                <th class="bg-light" style="width: 140px;">Acción</th>
+                                <th class="text-center bg-light" style="width: 160px;">Monto operado</th>
+                                <th class="text-center bg-light" style="width: 160px;">Utilidad</th>
+                                <th class="pe-4 bg-light" style="width: 180px;">Fecha Operación</th>
+                                <th class="pe-4 bg-light d-none d-md-table-cell" style="width: 180px;">Fecha Registro</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="mov in movimientos" :key="mov.id" class="border-top">
+                            <tr v-if="historial.length === 0">
+                                <td colspan="6" class="text-center py-5 text-muted">No se encontraron movimientos.</td>
+                            </tr>
+                            <tr v-for="mov in historial" :key="mov.id" class="border-top">
                                 <td class="ps-4">
-                                    <div class="fw-bold">{{ mov.usuario_nombre }}</div>
-                                    <div class="text-muted small">{{ mov.tipo_nombre }} ({{ mov.horario_texto }})</div>
+                                    <div style="font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 14px; color: #000000; letter-spacing: -0.01em;">
+                                        {{ mov.usuario }}
+                                    </div>
                                 </td>
-                                <td>{{ Number(mov.monto).toLocaleString() }} USDT</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border-0">{{ mov.tipo_movimiento }}</span>
+                                </td>
+                                <td class="text-center fw-bold">
+                                    {{ Number(mov.monto).toLocaleString() }} 
+                                    <small class="text-muted">{{ mov.divisa }}</small>
+                                </td>
                                 <td class="text-center">
                                     <span :class="['fw-bold', mov.utilidad >= 0 ? 'text-success' : 'text-danger']">
-                                        {{ mov.utilidad >= 0 ? '+' : '' }}{{ mov.utilidad }}
+                                        {{ mov.utilidad >= 0 ? '+' : '' }}{{ mov.utilidad }} 
+                                        <small>{{ mov.divisa }}</small>
                                     </span>
                                 </td>
-                                <td class="pe-4 small text-muted">{{ mov.fecha_registro }}</td>
+                                <td class="pe-4 small text-muted text-nowrap">{{ mov.operado }}</td>
+                                <td class="pe-4 small text-muted text-nowrap d-none d-md-table-cell">{{ mov.registro }}</td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="card-footer bg-white py-2 text-center">
+                    <small class="text-muted">Deslice horizontalmente para ver más columnas en móviles</small>
                 </div>
             </div>
         </div>

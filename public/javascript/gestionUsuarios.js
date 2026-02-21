@@ -163,8 +163,7 @@ createApp({
                         formData.append(key, this.nuevo[key]);
                     }
                 }
-                // Debug: Verifica en la consola del navegador antes de enviar
-                console.log("Enviando par_operar_fk:", this.nuevo.par_operar_fk);
+                
                 const response = await fetch(`${Config.BASE_URL}/auth/registrar_completo`, {
                     method: 'POST',
                     body: formData
